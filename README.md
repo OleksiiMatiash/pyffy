@@ -153,7 +153,11 @@ advUpdateDngSoftwareTagToAvoidOverprocessing
 
 If **`true`** `, pyffy` is added to the Software tag. When pyffy reads file for processing it looks for this text and skips file if found to avoid processing file more than once.
 
+```python
+advOverWriteSourceFileInPlace
+```
 
+If **`true`** corrected data is written directly to the source file without creating temporary file. If **`false`** temporary file is created, corrected data is written to it, existing file is deleted (to the recycler if **`send2trash`** is installed), and then temporary file is renamed to the original file name. **Use with extra care!**
 
 ### Disclaimer
 
