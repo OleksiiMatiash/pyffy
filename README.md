@@ -15,6 +15,7 @@ Credits go to DPReview forum member Horshack https://www.dpreview.com/forums/thr
 ### Requirements:
 - numpy
 - opencv
+- exiftool
 - (optional) send2trash, psutil
 
 
