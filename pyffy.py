@@ -132,7 +132,7 @@ def twoPasses(processFilesInSubfolders: bool, workingPath: str):
 
         pyffyIO.writeImageSettingsForTwoPassProcessing(workingPath, pyffyCommon.dictToJson(pyffyDB.createSettingsForTwoPassProcessing(dngFiles, workingPath, referenceDB, settings)))
 
-        exitWithPrompt("Done. Edit {0} and start this script again for second pass.".format(pyffyIO.referenceFilesExifDBFileName))
+        exitWithPrompt("Done. Edit {0} and start this script again for second pass.".format(pyffyIO.settingsForTwoPassProcessingFileName))
     else:
         print("Pass two.")
 
