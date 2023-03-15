@@ -74,7 +74,7 @@ def getExif(fileName: str = None, exifDict: dict = None) -> PyffyExif | None:
             break
 
     if cfaExif is None:
-        print("File does not contain supported raw image or is not supported.")
+        print("File does not contain supported raw image.")
         return None
 
     pyffyExif.imageHeight = cfaExif.get("ImageHeight")
@@ -176,13 +176,12 @@ def isFileAlreadyProcessed(exif: PyffyExif) -> bool:
 
 
 def isFileSupported(exifDict: dict) -> bool:
-    result = True
-    for key, supportedValue in pyffyFileCompatibilityFields.items():
+    for key, supportedValues in pyffyFileCompatibilityFields.items():
         exifValue = exifDict.get(key)
-        if exifValue is not None and exifValue not in supportedValue:
-            print("Supported value for tag {0} is {1}, actual is {2}".format(key, supportedValue, exifValue))
-            result = False
-    return result
+        if exifValue is not None and exifValue not in supportedValues:
+            print("Supported value for tag {0} is {1}, actual is {2}".format(key, supportedValues, exifValue))
+            return False
+    return True
 
 
 def isFileAndReferenceCompatible(exif: PyffyExif, referenceExif: PyffyExif):

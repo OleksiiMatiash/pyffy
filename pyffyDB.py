@@ -30,7 +30,7 @@ def createSettingsForTwoPassProcessing(files: list[str], rootFolder: str, refere
     for fileName in files:
         print(fileName)
         exif = pyffyExif.getExif(fileName = fileName)
-        if settings.advUpdateDngSoftwareTagToAvoidOverprocessing and pyffyExif.isFileAlreadyProcessed(exif):
+        if exif is None or settings.advUpdateDngSoftwareTagToAvoidOverprocessing and pyffyExif.isFileAlreadyProcessed(exif):
             continue
 
         processingSettingsItem = SettingsForTwoPassProcessing()
