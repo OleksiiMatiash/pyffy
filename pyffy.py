@@ -147,6 +147,9 @@ def twoPasses(processFilesInSubfolders: bool, workingPath: str):
             relativeFilePath = pyffyIO.getRelativePath(workingPath, fileName)
             settingsForFile = settingsForTwoPassProcessing.get(relativeFilePath)
 
+            if settingsForFile is None:
+                continue
+
             if (settingsForFile.referenceFiles is None or
                     len(settingsForFile.referenceFiles) == 0 or
                     len(settingsForFile.referenceFiles) > 1 and not settings.advUseFirstFoundReferenceInsteadOfSkippingProcessing):
