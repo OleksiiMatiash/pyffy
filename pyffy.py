@@ -219,7 +219,7 @@ def processOneFile(fileName: str,
     if settings.overwriteSourceFile and not settings.advOverWriteSourceFileInPlace:
         pyffyIO.replaceOriginalFileWithTmp(fileName, destinationFileName, isSend2TrashInstalled)
 
-    print("Processed in {0} s".format(time.time() - startTime))
+    print("Processed in {:.2f} s".format(time.time() - startTime))
 
 
 def prepareSettings():
