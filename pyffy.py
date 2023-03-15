@@ -147,7 +147,9 @@ def twoPasses(processFilesInSubfolders: bool, workingPath: str):
             relativeFilePath = pyffyIO.getRelativePath(workingPath, fileName)
             settingsForFile = settingsForTwoPassProcessing.get(relativeFilePath)
 
-            if settingsForFile.referenceFiles is None or len(settingsForFile.referenceFiles) > 1 and not settings.advUseFirstFoundReferenceInsteadOfSkippingProcessing:
+            if (settingsForFile.referenceFiles is None or
+                    len(settingsForFile.referenceFiles) == 0 or
+                    len(settingsForFile.referenceFiles) > 1 and not settings.advUseFirstFoundReferenceInsteadOfSkippingProcessing):
                 print("Reference files entry must contain exactly one record. Skipping {0}".format(relativeFilePath))
                 continue
 
