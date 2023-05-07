@@ -206,3 +206,11 @@ def assertValue(valueName: str, exifValue: int | float | str, supportedValue: in
         print("Error in value {0}: expected value is {1}, actual value is {2}".format(valueName, supportedValue, exifValue))
         return False
     return True
+
+
+def updateWithTwoPassSettings(settings: PyffySettings, twoPassFileSettings: SettingsForTwoPassProcessing) -> PyffySettings:
+    settings.luminanceCorrectionIntensity = twoPassFileSettings.luminanceCorrectionIntensity
+    settings.colorCorrectionIntensity = twoPassFileSettings.colorCorrectionIntensity
+    settings.advGaussianFilterSigma = twoPassFileSettings.advGaussianFilterSigma
+    settings.advLimitToWhiteLevels = twoPassFileSettings.advLimitToWhiteLevels
+    return settings

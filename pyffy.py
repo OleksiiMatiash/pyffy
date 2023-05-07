@@ -1,3 +1,4 @@
+import copy
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -145,22 +146,24 @@ def twoPasses(processFilesInSubfolders: bool, workingPath: str):
 
         for fileName in dngFiles:
             relativeFilePath = pyffyIO.getRelativePath(workingPath, fileName)
-            settingsForFile = settingsForTwoPassProcessing.get(relativeFilePath)
+            twoPassFileSettings = settingsForTwoPassProcessing.get(relativeFilePath)
 
-            if settingsForFile is None:
+            if twoPassFileSettings is None:
                 continue
 
-            if (settingsForFile.referenceFiles is None or
-                    len(settingsForFile.referenceFiles) == 0 or
-                    len(settingsForFile.referenceFiles) > 1 and not settings.advUseFirstFoundReferenceInsteadOfSkippingProcessing):
+            if (twoPassFileSettings.referenceFiles is None or
+                    len(twoPassFileSettings.referenceFiles) == 0 or
+                    len(twoPassFileSettings.referenceFiles) > 1 and not settings.advUseFirstFoundReferenceInsteadOfSkippingProcessing):
                 print("Reference files entry must contain exactly one record. Skipping {0}".format(relativeFilePath))
                 continue
 
-            referenceFile = settingsForFile.referenceFiles[0]
+            referenceFile = twoPassFileSettings.referenceFiles[0]
             referenceFile = pyffyIO.getAbsolutePath(settings.referenceFilesRootFolder, referenceFile)
             referenceFileExif = pyffyExif.getExif(referenceFile)
 
-            processOneFile(fileName, pyffyExif.getExif(fileName), referenceFile, referenceFileExif, settings, computationExecutor, ioExecutor, isSend2TrashInstalled)
+            settingsForFile = pyffyDB.updateWithTwoPassSettings(copy.deepcopy(settings), twoPassFileSettings)
+
+            processOneFile(fileName, pyffyExif.getExif(fileName), referenceFile, referenceFileExif, settingsForFile, computationExecutor, ioExecutor, isSend2TrashInstalled)
             print("")
 
         computationExecutor.shutdown()
