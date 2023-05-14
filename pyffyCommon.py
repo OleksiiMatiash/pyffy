@@ -35,7 +35,7 @@ def correctLuminance(channels: ndarray[float32],
 
         for i in range(channels.shape[0]):
             if colorPattern[i] != 1:
-                futures[i] = executor.submit(divideChannel, referenceChannels[i], averagedGreenReferenceChannels, luminanceCorrectionIntensity)
+                futures[i] = executor.submit(divideChannel, referenceChannels[i], averagedGreenReferenceChannels)
         for key in futures.keys():
             referenceChannels[key] = futures[key].result()
     else:
